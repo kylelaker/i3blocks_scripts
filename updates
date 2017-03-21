@@ -1,0 +1,9 @@
+#!/bin/sh
+NUMBER=$(pacaur -Qu | wc -l)
+echo "$NUMBER"
+echo "$NUMBER"
+if [ $NUMBER -gt 0 ]; then
+    echo "#FF0000"
+else
+    echo "#00FF00"
+fi

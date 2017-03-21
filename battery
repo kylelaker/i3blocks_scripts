@@ -1,0 +1,89 @@
+#!/usr/bin/env bash
+#########################################################################
+#                                                                       #
+# Checks the current battery charge and status. For my use, I only care #
+# about BAT0. This script does, however, check if BLOCK_INSTANCE is set #
+# and if it is, it will check that battery instead. The provided        #
+# BLOCK_INSTANCE must be a valid directory in                           #
+#       /sys/class/power_supply/                                        #
+# No attempt is made to ensure that the provided file exists. Nor is    #
+# there any attempt to perform sanity checking. Additionally, the       #
+# script will not stop executing if some part of it fails. It will run  #
+# with whatever it is given.                                            #
+#                                                                       #
+# Author: Kyle Laker <kyle@laker.email>                                 #
+# Licensed under the MIT License                                        #
+#########################################################################
+readonly battery=${BLOCK_INSTANCE:-'BAT0'}
+
+readonly bat_dir="/sys/class/power_supply/${battery}"
+readonly bat_charge_now_file="${bat_dir}/charge_now"
+readonly bat_charge_full_file="${bat_dir}/charge_full"
+readonly bat_status_file="${bat_dir}/status"
+
+readonly bat_charge_now="$(cat "${bat_charge_now_file}")"
+readonly bat_charge_full="$(cat "${bat_charge_full_file}")"
+readonly bat_status="$(cat "${bat_status_file}")"
+
+percent=$(bc <<< "scale=2; $bat_charge_now / $bat_charge_full * 100")
+percent=${percent%'.00'}
+
+# Symbols - XTerm doesn't show these characters, so it's easier for me to
+# just declare them as variables. They require FontAwesome.
+readonly bolt=''
+readonly full_bat=''
+readonly three_quarter_bat=''
+readonly half_bat=''
+readonly quarter_bat=''
+readonly empty_bat=''
+
+#Colors
+readonly green='#00FF00'
+readonly light_green='#A8FF00'
+readonly yellow='#FFF600'
+readonly orange='#FFAE00'
+readonly red='#FF0000'
+
+declare battery_icon
+declare color
+declare full_text
+
+# Set the battery icon and the color for the text
+if (( percent <= 10 )); then
+  battery_icon="${empty_bat}"
+  color="${red}"
+elif (( percent <= 35 )); then
+  battery_icon="${quarter_bat}"
+  color="${orange}"
+elif (( percent <= 60 )); then
+  battery_icon="${half_bat}"
+  color="${yellow}"
+elif (( percent <= 85 )); then
+  battery_icon="${three_quarter_bat}"
+  color="${light_green}"
+else
+  battery_icon="${full_bat}"
+  color="${green}"
+fi
+
+# Set the the full output
+if [ "${bat_status}" == "Charging" ]; then
+  full_text="${bolt} ${battery_icon} ${percent}%"
+else
+  full_text="${battery_icon} ${percent}%"
+fi
+
+# First line technically the "full text", the second line is the
+# "short output". The third line is the color for the text.
+echo "${full_text}"
+echo "${full_text}"
+echo "${color}"
+
+# Exit code of 33 means that this block will be shown as urgent. 0
+# means sucessfully exited (like usual).
+if (( percent <= 5 )); then
+  exit 33
+else
+  exit 0
+fi
+
