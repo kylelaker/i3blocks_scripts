@@ -1,3 +1,16 @@
+/*
+ * This is a script written using Kotlin for checking the current
+ * battery status. To run it, execute:
+ *    kotlinc -script batscript.kts
+ *
+ * It parses the information in /sys/class/power_supply/BAT0 to get the
+ * current battery state. It outputs this information in the standard
+ * i3blocks format.
+ *
+ * Author: Kyle Laker<kyle@laker.email>
+ * Licensed under the MIT License (see the LICENSE file for details)
+ */
+
 import java.nio.file.*
 import kotlin.system.exitProcess
 

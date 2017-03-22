@@ -1,4 +1,11 @@
-#!/usr/bin/env bash
+#!/bin/sh
+# Displays the current wifi network's name. The interface to check on
+# should be provided with its interface name as the BLOCK_INSTANCE
+# environment variable. The default is wlp3s0.
+#
+# Author: Kyle Laker <kyle@laker.email>
+# Licensed under the MIT LIcense (see the license file for more info)
+
 INTERFACE="${BLOCK_INSTANCE:-wlp3s0}"
 NAME=$(iw dev $INTERFACE info | grep ssid | cut -d ' ' -f 2)
 echo "$NAME"
