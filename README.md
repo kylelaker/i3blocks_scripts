@@ -1,4 +1,4 @@
-#i3_blocks Scripts
+# i3blocks Scripts
 
 Collection of scripts for i3blocks.
 
