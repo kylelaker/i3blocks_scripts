@@ -66,18 +66,20 @@ else
   color="${green}"
 fi
 
+readonly battery_pango="<span color=\"${color}\" font_desc=\"FontAwesome\">${battery_icon} </span>"
+readonly bolt_pango="<span color=\"${yellow}\" font_desc=\"FontAwesome\">${bolt} </span>"
+
 # Set the the full output
 if [ "${bat_status}" == "Charging" ]; then
-  full_text="${bolt} ${battery_icon} ${percent}%"
+  full_text="${bolt_pango}${battery_pango}${percent}%"
 else
-  full_text="${battery_icon} ${percent}%"
+  full_text="${battery_pango}${percent}%"
 fi
 
 # First line technically the "full text", the second line is the
 # "short output". The third line is the color for the text.
 echo "${full_text}"
 echo "${full_text}"
-echo "${color}"
 
 # Exit code of 33 means that this block will be shown as urgent. 0
 # means sucessfully exited (like usual).
