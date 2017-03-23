@@ -15,11 +15,12 @@ green="#00FF00"
 
 # Number of available updates
 number=$(pacaur -Qu | wc -l)
-
-echo "${number}"
-echo "${number}"
-if [ ${number} -gt 0 ]; then
-    echo "${red}"
+if [ ${number} -gt 0]; then
+    color="${red}"
 else
-    echo "${green}"
+    color="${green}"
 fi
+
+text="<span color=\"${color}\">${number}</span>"
+echo "${text}"
+echo "${text}"
