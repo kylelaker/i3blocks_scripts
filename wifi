@@ -7,6 +7,6 @@
 # Licensed under the MIT LIcense (see the license file for more info)
 
 INTERFACE="${BLOCK_INSTANCE:-wlp3s0}"
-NAME=$(iw dev $INTERFACE info | grep ssid | cut -d ' ' -f 2)
-echo "$NAME"
-echo "$NAME"
+NAME=$(iw dev "${INTERFACE}" info | grep ssid | cut -d ' ' -f 2)
+echo "$NAME" #Short text
+echo "$NAME" #Full text
