@@ -15,7 +15,7 @@ green="#00FF00"
 
 # Number of available updates
 number=$(pacaur -Qu | wc -l)
-if [ ${number} -gt 0]; then
+if [ "${number}" -gt "0" ]; then
     color="${red}"
 else
     color="${green}"
