@@ -30,6 +30,7 @@ percent=${percent%'.00'}
 
 # Symbols - XTerm doesn't show these characters, so it's easier for me to
 # just declare them as variables. They require FontAwesome.
+readonly plug=''
 readonly bolt=''
 readonly full_bat=''
 readonly three_quarter_bat=''
@@ -67,11 +68,11 @@ else
 fi
 
 readonly battery_pango="<span color=\"${color}\" font_desc=\"FontAwesome\">${battery_icon} </span>"
-readonly bolt_pango="<span color=\"${yellow}\" font_desc=\"FontAwesome\">${bolt} </span>"
+readonly plug_pango="<span color=\"${yellow}\" font_desc=\"FontAwesome\">${plug} </span>"
 
 # Set the the full output
 if [ "${bat_status}" == "Charging" ]; then
-  full_text="${bolt_pango}${battery_pango}${percent}%"
+  full_text="${plug_pango}${percent}%"
 else
   full_text="${battery_pango}${percent}%"
 fi
