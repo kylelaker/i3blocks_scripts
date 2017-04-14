@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 # Displays the current wifi network's name. The interface to check on
 # should be provided with its interface name as the BLOCK_INSTANCE
 # environment variable. The default is wlp3s0.
@@ -8,5 +8,11 @@
 
 INTERFACE="${BLOCK_INSTANCE:-wlp3s0}"
 NAME=$(iw dev "${INTERFACE}" info | grep ssid | cut -d ' ' -f 2)
+
+if [[ "${BLOCK_BUTTON}" -eq 1 ]]; then
+    ip_address="$(curl -s "https://api.ipify.org")"
+    notify-send -a "" -t 500 "IP Address" "${ip_address}"
+fi
+
 echo "$NAME" #Short text
 echo "$NAME" #Full text
