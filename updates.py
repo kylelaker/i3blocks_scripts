@@ -13,10 +13,10 @@ updatesList = updates.split()
 for update in updatesList:
     for post in data.entries[0:2]:
         if update in post:
-            print("")
+            print("<span color='#FF0000'></span>")
             quit()
 
 if len(updatesList) > 0:
-    print("")
+    print("<span color='#FFF600'></span>")
 else:
-    print("")
+    print("<span color='#00FF00'></span>")
