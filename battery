@@ -68,7 +68,7 @@ else
 fi
 
 readonly battery_pango="<span color=\"${color}\" font_desc=\"FontAwesome\">${battery_icon} </span>"
-readonly plug_pango="<span color=\"${yellow}\" font_desc=\"FontAwesome\">${plug} </span>"
+readonly plug_pango="<span color=\"${green}\" font_desc=\"FontAwesome\">${plug} </span>"
 
 # Set the the full output
 if [ "${bat_status}" == "Charging" ]; then
