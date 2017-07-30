@@ -6,13 +6,13 @@
 # Author: Kyle Laker <kyle@laker.email>
 # Licensed under the MIT LIcense (see the license file for more info)
 
-INTERFACE="${BLOCK_INSTANCE:-wlp3s0}"
-NAME=$(iw dev "${INTERFACE}" link | grep "SSID" | cut -d ' ' -f 2-)
+interface="${BLOCK_INSTANCE:-wlp3s0}"
+name=$(iw dev "${interface}" link | grep "SSID" | cut -d ' ' -f 2-)
 
 if [[ "${BLOCK_BUTTON}" -eq 1 ]]; then
     ip_address="$(curl -s "https://api.ipify.org")"
     notify-send -a "" -t 500 "IP Address" "${ip_address}"
 fi
 
-echo "$NAME"
-echo "$NAME"
+echo "$name"
+echo "$name"
