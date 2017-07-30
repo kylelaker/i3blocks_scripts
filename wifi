@@ -7,7 +7,7 @@
 # Licensed under the MIT LIcense (see the license file for more info)
 
 INTERFACE="${BLOCK_INSTANCE:-wlp3s0}"
-NAME=$(iw dev "${INTERFACE}" info | grep ssid | cut -d ' ' -f 2)
+NAME=$(iw dev "${INTERFACE}" info | grep ssid | cut -d ' ' -f 2-)
 
 if [[ "${BLOCK_BUTTON}" -eq 1 ]]; then
     ip_address="$(curl -s "https://api.ipify.org")"
