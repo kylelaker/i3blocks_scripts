@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+file="$HOME/.datetime"
+
+# Clicking the blocklet toggles the mode. If $file exists, remove it; otherwise
+# create it.
+if [ "$BLOCK_BUTTON" -eq 1 ]; then
+    if [ -f "$file" ]; then
+        rm "$file"
+    else
+        echo "$$" > "$file"
+    fi
+fi
+
+# Set print the date in the correct format based on whether or not $file
+# exists. If it exists, use the long format; otherwise, use the short
+# time-only format.
+if [ -f "$file" ]; then
+    date "+%Y-%m-%d %H:%M"
+else
+    date "+%H:%M"
+fi
